@@ -27,6 +27,7 @@ struct ContentView: View {
                 
                 Button ("dame el mlfb") {
                     print(products[1])
+                    print(products.count)
                 }
                 .padding(.all, 10.0)
                 .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)

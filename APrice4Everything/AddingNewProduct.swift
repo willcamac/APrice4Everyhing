@@ -72,7 +72,9 @@ struct AddingNewProduct: View {
                 }
             }
             Button("Ok") {
-                Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria)
+                allProducts.append(Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria))
+                // Se agrega el nuevo producto al array de productos.
+                
                 dismiss()
                 //verifica que todos los campos esten llenos, hace dismiss y append el elemento al array
 //                let newProduct = Product(mlfb: String?(newMlfb), descripcion: String?(newDescripcion), precio: String?(newPrecio) , moneda: String?(newMoneda), categoria: String?(newCategoria), subcategoria: String?(newSubcategoria))
