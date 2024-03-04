@@ -9,16 +9,17 @@ import SwiftUI
 
 struct AddingNewProduct: View {
     @Environment(\.dismiss) var dismiss // dismissea el sheet
+  
     
-
+    @Binding var allProducts : [Product]
     
-    @State private var newMlfb: String = ""
-    @State private var newDescripcion: String = ""
-    @State private var newPrecio: String = ""
-    @State private var newMoneda: String = "$"
-    @State private var newCategoria: String = "0"
-    @State private var newSubcategoria: String = ""
-    private var categorias = ["0","1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    @State var newMlfb: String = ""
+    @State var newDescripcion: String = ""
+    @State var newPrecio: String = ""
+    @State var newMoneda: String = "$"
+    @State var newCategoria: String = "0"
+    @State var newSubcategoria: String = ""
+    var categorias = ["0","1", "2", "3", "4", "5", "6", "7", "8", "9"]
     
     var body: some View {
         NavigationStack{
@@ -71,9 +72,11 @@ struct AddingNewProduct: View {
                 }
             }
             Button("Ok") {
+                Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria)
+                dismiss()
                 //verifica que todos los campos esten llenos, hace dismiss y append el elemento al array
 //                let newProduct = Product(mlfb: String?(newMlfb), descripcion: String?(newDescripcion), precio: String?(newPrecio) , moneda: String?(newMoneda), categoria: String?(newCategoria), subcategoria: String?(newSubcategoria))
-               // agregar el nuevo producto
+               // agregar el nuevo productor
             }.navigationTitle("Enter a new product")
                 .font(.title)
         }
@@ -81,7 +84,7 @@ struct AddingNewProduct: View {
 }
 
 #Preview {
-    AddingNewProduct()
+    AddingNewProduct(allProducts: .constant([]))
 }
 
 

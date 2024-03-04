@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    let products = Bundle.main.decode("LP2023.json")
+   
+    @State private var products = Bundle.main.decode("LP2023.json")
     @State private var searchedProduct: String = ""
     @State private var showingAddingSheet: Bool = false // Booleano que despliega el sheet.
     
@@ -53,7 +54,7 @@ struct ContentView: View {
             }
             
         }.sheet(isPresented: $showingAddingSheet) {
-            AddingNewProduct()
+            AddingNewProduct(allProducts: $products)
         }
         
     }

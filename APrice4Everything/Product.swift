@@ -28,10 +28,10 @@ class Product: Identifiable, Codable {
 }
     
 class AllProducts: ObservableObject {
-    @Published var products: [Product]
+    @Published var products: [Product] = [] // uso @Published para enviarlo al Enviroment
 
-    init(products: [Product]) {
-        self.products = products
-    }
+//    init(products: [Product]) {
+//        self.products = products
+//    }
     
 }
