@@ -12,18 +12,12 @@ struct ContentView: View {
     @State private var products = Bundle.main.decode("LP2023.json")
     @State private var searchedProduct: String = ""
     @State private var showingAddingSheet: Bool = false // Booleano que despliega el sheet.
+    @State private var filteredProducts: [Product] = []
     
     
     var body: some View {
         NavigationStack{
             VStack(alignment: .center) {
-                TextField ("Search", text: $searchedProduct)
-                    .padding(.all, 20.0)
-                    .frame(width: 300.0, height: 40.0)
-                    .foregroundColor(/*@START_MENU_TOKEN@*/.green/*@END_MENU_TOKEN@*/)
-                    .border(.red, width: 1)
-                
-                
                 
                 Button ("dame el mlfb") {
                     print(products[1])
@@ -44,8 +38,18 @@ struct ContentView: View {
                         }
                         .padding(.all, 5)
                         .border(.red, width: 1)
+                        .searchable(text: $searchedProduct)
+                                                .onChange(of: searchedProduct) { search in
+                                                    filteredProducts = products.filter({ $0.mlfb!.starts(with: search.uppercased())})
+                        
+                                                
                     }}}
+
+            
             .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
+            .onAppear(perform: {
+                filteredProducts = products
+            })
             .toolbar {
                 Button {
                     showingAddingSheet.toggle() // despliega el sheet de agregar nuevo producto.
