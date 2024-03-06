@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-   
+    
     @State private var products = Bundle.main.decode("LP2023.json")
     @State private var searchedProduct: String = ""
     @State private var showingAddingSheet: Bool = false // Booleano que despliega el sheet.
@@ -33,35 +33,41 @@ struct ContentView: View {
                 Text("Texto de marcado list")
                 ScrollView {
                     LazyVStack(spacing: 10) {
-                        ForEach(products){
+                        ForEach(filteredProducts){
                             if let unwrappedMlfb = $0.mlfb{Text(unwrappedMlfb)}
                         }
                         .padding(.all, 5)
                         .border(.red, width: 1)
                         .searchable(text: $searchedProduct)
-                                                .onChange(of: searchedProduct) { search in
-                                                    filteredProducts = products.filter({ $0.mlfb!.starts(with: search.uppercased())})
-                        
-                                                
-                    }}}
-
-            
-            .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
-            .onAppear(perform: {
-                filteredProducts = products
-            })
-            .toolbar {
-                Button {
-                    showingAddingSheet.toggle() // despliega el sheet de agregar nuevo producto.
-                } label: {
-                    Label("Add a new MLFB", systemImage: "plus").font(.largeTitle)
+                        //                        .onCha
+                        .onChange(of: searchedProduct) { oldValue, newValue in
+                            //                            filteredProducts = products.filter({ $0.mlfb!.starts(with: search.uppercased())})}
+                            filteredProducts = products.filter({ product in
+                                if let unwrappedMlfb = product.mlfb{
+                                    unwrappedMlfb.starts(with: unwrappedMlfb.uppercased())
+                                return true}
+                            return false})
+                            
+                        }}}
+                
+                
+                .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
+                .onAppear(perform: {
+                    filteredProducts = products
+                })
+                .toolbar {
+                    Button {
+                        showingAddingSheet.toggle() // despliega el sheet de agregar nuevo producto.
+                    } label: {
+                        Label("Add a new MLFB", systemImage: "plus").font(.largeTitle)
+                    }
                 }
+                
+            }.sheet(isPresented: $showingAddingSheet) {
+                AddingNewProduct(allProducts: $products)
             }
             
-        }.sheet(isPresented: $showingAddingSheet) {
-            AddingNewProduct(allProducts: $products)
         }
-        
     }
 }
 
