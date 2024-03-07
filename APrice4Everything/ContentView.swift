@@ -34,37 +34,40 @@ struct ContentView: View {
                 ScrollView {
                     LazyVStack(spacing: 10) {
                         ForEach(filteredProducts){
-                            if let unwrappedMlfb = $0.mlfb{Text(unwrappedMlfb)}
+                            if let unwrappedMlfb = $0.mlfb{
+                                  Text(unwrappedMlfb)
+                            }
                         }
                         .padding(.all, 5)
                         .border(.red, width: 1)
-                        .searchable(text: $searchedProduct)
-                        //                        .onCha
-                        .onChange(of: searchedProduct) { oldValue, newValue in
-                            //                            filteredProducts = products.filter({ $0.mlfb!.starts(with: search.uppercased())})}
-                            filteredProducts = products.filter({ product in
-                                if let unwrappedMlfb = product.mlfb{
-                                    unwrappedMlfb.starts(with: unwrappedMlfb.uppercased())
-                                return true}
-                            return false})
-                            
-                        }}}
+                    }}
                 
-                
-                .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
-                .onAppear(perform: {
-                    filteredProducts = products
-                })
-                .toolbar {
-                    Button {
-                        showingAddingSheet.toggle() // despliega el sheet de agregar nuevo producto.
-                    } label: {
-                        Label("Add a new MLFB", systemImage: "plus").font(.largeTitle)
-                    }
-                }
+
+       
                 
             }.sheet(isPresented: $showingAddingSheet) {
                 AddingNewProduct(allProducts: $products)
+            }
+            .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
+            .onAppear(perform: {filteredProducts = products})
+            .searchable(text: $searchedProduct)
+            .onChange(of: searchedProduct) { oldValue, newValue in
+                filteredProducts = products.filter({ product in
+                    guard let unwrappedMlfb = product.mlfb  else {
+                        print("There was a error unwrapping mlfb")
+                        return false}
+                    if unwrappedMlfb.starts(with: newValue.uppercased()){
+                        return true}
+                    else {return false}
+                    
+                })
+            }
+            .toolbar {
+                Button {
+                    showingAddingSheet.toggle() // despliega el sheet de agregar nuevo producto.
+                } label: {
+                    Label("Add a new MLFB", systemImage: "plus").font(.largeTitle)
+                }
             }
             
         }
