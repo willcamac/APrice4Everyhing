@@ -19,7 +19,7 @@ struct ContentView: View {
         NavigationStack{
             VStack(alignment: .center) {
                 
-                Button ("dame el mlfb") {
+                Button ("cantidad de productos") {
                     print(products[1])
                     print(products.count)
                 }
@@ -46,7 +46,7 @@ struct ContentView: View {
        
                 
             }.sheet(isPresented: $showingAddingSheet) {
-                AddingNewProduct(allProducts: $products)
+                AddingNewProduct(products: $products)
             }
             .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
             .onAppear(perform: {filteredProducts = products})

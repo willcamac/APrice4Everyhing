@@ -11,7 +11,7 @@ struct AddingNewProduct: View {
     @Environment(\.dismiss) var dismiss // dismissea el sheet
   
     
-    @Binding var allProducts : [Product]
+    @Binding var products : [Product]
     
     @State var newMlfb: String = ""
     @State var newDescripcion: String = ""
@@ -72,7 +72,7 @@ struct AddingNewProduct: View {
                 }
             }
             Button("Ok") {
-                allProducts.append(Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria))
+                products.append(Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria))
                 // Se agrega el nuevo producto al array de productos.
                 
                 dismiss()
@@ -86,7 +86,7 @@ struct AddingNewProduct: View {
 }
 
 #Preview {
-    AddingNewProduct(allProducts: .constant([]))
+    AddingNewProduct(products: .constant([]))
 }
 
 
