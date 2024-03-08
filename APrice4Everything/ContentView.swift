@@ -31,16 +31,17 @@ struct ContentView: View {
                     .padding(.all, 10)
                     .border(.red, width: 1)
                 Text("Texto de marcado list")
-                ScrollView {
+               List {
                     LazyVStack(spacing: 10) {
                         ForEach(filteredProducts){
                             if let unwrappedMlfb = $0.mlfb{
-                                  Text(unwrappedMlfb)
+                                
+                                Text(unwrappedMlfb)
                             }
                         }
-                        .padding(.all, 5)
                         .border(.red, width: 1)
-                    }}
+                    }
+                }
                 
 
        
