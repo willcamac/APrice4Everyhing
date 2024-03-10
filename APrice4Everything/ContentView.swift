@@ -19,19 +19,44 @@ struct ContentView: View {
         NavigationStack{
             VStack(alignment: .center) {
                 
-                Button ("cantidad de productos") {
+                HStack{    Button ("cantidad de productos") {
                     print(products[1])
                     print(products.count)
                 }
+                    Image(systemName: "printer")
+                }
+                .buttonStyle(.bordered)
                 .padding(.all, 10.0)
-                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                 
                 
-                Text(searchedProduct)
-                    .padding(.all, 10)
-                    .border(.red, width: 1)
+                
+                HStack{
+                    Button {
+                        // cambio de Seleccion
+                    } label: {
+                        Text("seleccion 1")
+                        Image(systemName: "keyboard")
+                    }.buttonStyle(.bordered)
+                    
+                    Button {
+                        // cambio de Seleccion
+                    } label: {
+                        Text("seleccion 1")
+                        Image(systemName: "keyboard")
+                    }.buttonStyle(.bordered)
+                    
+                    Button {
+                        // cambio de Seleccion
+                    } label: {
+                        Text("seleccion 1")
+                        Image(systemName: "keyboard")
+                    }.buttonStyle(.bordered)
+                    
+                }
+                .padding(.all, 10)
+                .border(.red, width: 1)
                 Text("Texto de marcado list")
-               List {
+                List {
                     LazyVStack(spacing: 10) {
                         ForEach(filteredProducts){
                             if let unwrappedMlfb = $0.mlfb{
@@ -43,25 +68,27 @@ struct ContentView: View {
                     }
                 }
                 
-
-       
+                
+                
                 
             }.sheet(isPresented: $showingAddingSheet) {
                 AddingNewProduct(products: $products)
             }
             .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
+            
             .onAppear(perform: {filteredProducts = products})
             .searchable(text: $searchedProduct)
-            .onChange(of: searchedProduct) { oldValue, newValue in
-                filteredProducts = products.filter({ product in
-                    guard let unwrappedMlfb = product.mlfb  else {
-                        print("There was a error unwrapping mlfb")
-                        return false}
-                    if unwrappedMlfb.starts(with: newValue.uppercased()){
-                        return true}
-                    else {return false}
+            .onChange(of: searchedProduct) { oldValue, newValue in /// en el momento que se actualice el searchedProduct se refreshea todo el filteredProduct
+                
+                newValue == "" ? filteredProducts = products : ( /// si el nuevo valor está vacío entonces cargo de toda la relacion, en caso contrario aplico el filtro
                     
-                })
+                    filteredProducts = products.filter({ product in /// filtraré los product desde products y los cargaré a filteredProducts
+                        guard let unwrappedMlfb = product.mlfb  else { /// Desenvuelvo el mlfb de cada uno de los product de products para asegurarme que no es nil
+                            print("There was a error unwrapping mlfb") /// Arroja error si es nil y devuelve false
+                            return false}
+                        
+                        return unwrappedMlfb.contains(newValue.uppercased()) ? true : false /// Si es posible desenvolver el mlfb entonces evalúo si contiene el newValue en mayusculas, si cumple devuelve true y se añade al filteredProducts, si no es false y pasa de este.
+                    }))
             }
             .toolbar {
                 Button {
