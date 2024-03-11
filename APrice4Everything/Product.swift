@@ -20,12 +20,6 @@ struct Product: Identifiable, Codable, Hashable, Equatable { // Se agregan los p
     var moneda: String?
     var categoria: String?
     var subcategoria: String?
-    
-    func hash(into hasher: inout Hasher){ // func necesaria to conform to Hashable Protocol
-        hasher.combine(id)
-        hasher.combine(mlfb)
-        hasher.combine(descripcion)
-    }
 }
     
 class AllProducts: ObservableObject {

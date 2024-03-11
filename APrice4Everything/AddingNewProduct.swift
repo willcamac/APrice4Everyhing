@@ -71,7 +71,7 @@ struct AddingNewProduct: View {
                 }
             }
             Button("Ok") {
-                let newProduct = Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria)
+                let newProduct = Product(mlfb: newMlfb.validateString(), descripcion: newDescripcion.validateString(), precio: newPrecio.validateString(), moneda: newMoneda.validateString(), categoria: newCategoria.validateString(), subcategoria: newSubcategoria.validateString())
                 model.addProduct(product: newProduct)
                 // Se agrega el nuevo producto al array de productos.
                 
@@ -84,6 +84,7 @@ struct AddingNewProduct: View {
         }
     }
 }
+
 
 #Preview {
     AddingNewProduct().environmentObject(ProductModel())

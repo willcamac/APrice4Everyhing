@@ -17,6 +17,7 @@ class ProductModel: ObservableObject {
     
     func addProduct(product: Product) {
         productList.insert(product, at: 0)
+        print(productList.first)
     }
 
 }

@@ -67,7 +67,7 @@ struct ContentView: View {
                     LazyVStack {
                         ForEach(searchResults){ product in
                             if let unwrappedMlfb = product.mlfb {
-                                NavigationLink("\(unwrappedMlfb)", value: product)
+                                NavigationLink("\(unwrappedMlfb)" , value: product)
                             } else {
                                 let _ = print(product)
                                 Text(product.descripcion ?? "Description")
