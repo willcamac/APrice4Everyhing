@@ -34,36 +34,45 @@ struct ContentView: View {
                     Button {
                         // cambio de Seleccion
                     } label: {
-                        Text("seleccion 1")
-                        Image(systemName: "keyboard")
+                        Text("MLFB")
+                        Image(systemName: "arrow.up.arrow.down")
                     }.buttonStyle(.bordered)
                     
                     Button {
                         // cambio de Seleccion
                     } label: {
-                        Text("seleccion 1")
-                        Image(systemName: "keyboard")
+                        Text("Descripcion")
+                        Image(systemName: "arrow.up.arrow.down")
                     }.buttonStyle(.bordered)
                     
                     Button {
                         // cambio de Seleccion
                     } label: {
-                        Text("seleccion 1")
-                        Image(systemName: "keyboard")
+                        Text("Precio")
+                        Image(systemName: "dollarsign")
                     }.buttonStyle(.bordered)
                     
                 }
                 .padding(.all, 10)
                 .border(.red, width: 1)
                 Text("Texto de marcado list")
-                List {
-                    LazyVStack(spacing: 10) {
-                        ForEach(filteredProducts){
-                            if let unwrappedMlfb = $0.mlfb{
+                
+                
+                    List {
+             LazyVStack(spacing: 10) {
+                        ForEach(filteredProducts){ product in
+                            if let unwrappedMlfb = product.mlfb{
                                 
-                                Text(unwrappedMlfb)
+                                NavigationLink("\(unwrappedMlfb)", value: product)
+                                
+                                
                             }
                         }
+                        .navigationDestination(for: Product.self, destination: { selection in
+                    
+                            Text("You have selected \(selection.mlfb!)")
+                        })
+                    
                         .border(.red, width: 1)
                     }
                 }
