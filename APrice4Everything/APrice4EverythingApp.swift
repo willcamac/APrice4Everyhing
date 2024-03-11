@@ -11,7 +11,7 @@ import SwiftUI
 struct APrice4EverythingApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(ProductModel())
         }
     }
 }

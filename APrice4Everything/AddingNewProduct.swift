@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct AddingNewProduct: View {
+    @EnvironmentObject
+    private var model: ProductModel
     @Environment(\.dismiss) var dismiss // dismissea el sheet
-  
-    
-    @Binding var products : [Product]
-    
+
     @State var newMlfb: String = ""
     @State var newDescripcion: String = ""
     @State var newPrecio: String = ""
@@ -72,7 +71,8 @@ struct AddingNewProduct: View {
                 }
             }
             Button("Ok") {
-                products.append(Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria))
+                let newProduct = Product(mlfb: newMlfb, descripcion: newDescripcion, precio: newPrecio, moneda: newMoneda, categoria: newCategoria, subcategoria: newSubcategoria)
+                model.addProduct(product: newProduct)
                 // Se agrega el nuevo producto al array de productos.
                 
                 dismiss()
@@ -86,7 +86,7 @@ struct AddingNewProduct: View {
 }
 
 #Preview {
-    AddingNewProduct(products: .constant([]))
+    AddingNewProduct().environmentObject(ProductModel())
 }
 
 

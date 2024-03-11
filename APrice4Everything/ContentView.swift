@@ -8,28 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State private var products = Bundle.main.decode("LP2023.json")
-    @State private var searchedProduct: String = ""
+    @EnvironmentObject private var model: ProductModel
+    @State private var searchedProductText: String = ""
     @State private var showingAddingSheet: Bool = false // Booleano que despliega el sheet.
-    @State private var filteredProducts: [Product] = []
-    
-    
+
+    var searchResults: [Product] {
+        if searchedProductText.isEmpty {
+            return model.productList
+        } else {
+            return model.productList.filter { $0.mlfb?.contains(searchedProductText) ?? false || $0.descripcion?.contains(searchedProductText) ?? false
+            }
+        }
+    }
+
     var body: some View {
         NavigationStack{
             VStack(alignment: .center) {
-                
+
                 HStack{    Button ("cantidad de productos") {
-                    print(products[1])
-                    print(products.count)
+                    print(model.productList.first)
+                    print(model.productList.count)
                 }
                     Image(systemName: "printer")
                 }
                 .buttonStyle(.bordered)
                 .padding(.all, 10.0)
-                
-                
-                
+
+
+
                 HStack{
                     Button {
                         // cambio de Seleccion
@@ -37,68 +43,52 @@ struct ContentView: View {
                         Text("MLFB")
                         Image(systemName: "arrow.up.arrow.down")
                     }.buttonStyle(.bordered)
-                    
+
                     Button {
                         // cambio de Seleccion
                     } label: {
                         Text("Descripcion")
                         Image(systemName: "arrow.up.arrow.down")
                     }.buttonStyle(.bordered)
-                    
+
                     Button {
                         // cambio de Seleccion
                     } label: {
                         Text("Precio")
                         Image(systemName: "dollarsign")
                     }.buttonStyle(.bordered)
-                    
+
                 }
                 .padding(.all, 10)
                 .border(.red, width: 1)
                 Text("Texto de marcado list")
-                
-                
-                    List {
-             LazyVStack(spacing: 10) {
-                        ForEach(filteredProducts){ product in
-                            if let unwrappedMlfb = product.mlfb{
-                                
+
+                ScrollView {
+                    LazyVStack {
+                        ForEach(searchResults){ product in
+                            if let unwrappedMlfb = product.mlfb {
                                 NavigationLink("\(unwrappedMlfb)", value: product)
-                                
-                                
+                            } else {
+                                let _ = print(product)
+                                Text(product.descripcion ?? "Description")
                             }
                         }
-                        .navigationDestination(for: Product.self, destination: { selection in
-                    
-                            Text("You have selected \(selection.mlfb!)")
-                        })
-                    
                         .border(.red, width: 1)
                     }
                 }
-                
-                
-                
-                
+                .navigationDestination(for: Product.self, destination: { selection in
+                    Text("You have selected \(selection.mlfb!)")
+                })
             }.sheet(isPresented: $showingAddingSheet) {
-                AddingNewProduct(products: $products)
+                AddingNewProduct().environmentObject(model)
             }
             .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
-            
-            .onAppear(perform: {filteredProducts = products})
-            .searchable(text: $searchedProduct)
-            .onChange(of: searchedProduct) { oldValue, newValue in /// en el momento que se actualice el searchedProduct se refreshea todo el filteredProduct
-                
-                newValue == "" ? filteredProducts = products : ( /// si el nuevo valor está vacío entonces cargo de toda la relacion, en caso contrario aplico el filtro
-                    
-                    filteredProducts = products.filter({ product in /// filtraré los product desde products y los cargaré a filteredProducts
-                        guard let unwrappedMlfb = product.mlfb  else { /// Desenvuelvo el mlfb de cada uno de los product de products para asegurarme que no es nil
-                            print("There was a error unwrapping mlfb") /// Arroja error si es nil y devuelve false
-                            return false}
-                        
-                        return unwrappedMlfb.contains(newValue.uppercased()) ? true : false /// Si es posible desenvolver el mlfb entonces evalúo si contiene el newValue en mayusculas, si cumple devuelve true y se añade al filteredProducts, si no es false y pasa de este.
-                    }))
-            }
+            .onAppear(perform: {
+                if model.productList.isEmpty {
+                    model.pullProducts()
+                }
+            })
+            .searchable(text: $searchedProductText)
             .toolbar {
                 Button {
                     showingAddingSheet.toggle() // despliega el sheet de agregar nuevo producto.
@@ -106,7 +96,6 @@ struct ContentView: View {
                     Label("Add a new MLFB", systemImage: "plus").font(.largeTitle)
                 }
             }
-            
         }
     }
 }

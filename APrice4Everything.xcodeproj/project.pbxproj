@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		228E2B8E2B9EABFD00AEA579 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228E2B8D2B9EABFD00AEA579 /* ProductModel.swift */; };
 		6B68CFC12B79872E003FED2C /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B68CFC02B79872E003FED2C /* Bundle-Decodable.swift */; };
 		6B6B6A1A2B8C082600408A51 /* AddingNewProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6B6A192B8C082600408A51 /* AddingNewProduct.swift */; };
 		6B9A45972B9A95F400473203 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9A45962B9A95F400473203 /* ProductDetailView.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		228E2B8D2B9EABFD00AEA579 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		6B68CFC02B79872E003FED2C /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		6B6B6A192B8C082600408A51 /* AddingNewProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewProduct.swift; sourceTree = "<group>"; };
 		6B9A45962B9A95F400473203 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
@@ -42,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		228E2B8C2B9EABEE00AEA579 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				228E2B8D2B9EABFD00AEA579 /* ProductModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6BFBD4FE2B75914F00C7EF06 = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +71,7 @@
 		6BFBD5092B75914F00C7EF06 /* APrice4Everything */ = {
 			isa = PBXGroup;
 			children = (
+				228E2B8C2B9EABEE00AEA579 /* Model */,
 				6BFBD50A2B75915000C7EF06 /* APrice4EverythingApp.swift */,
 				6BFBD50C2B75915000C7EF06 /* ContentView.swift */,
 				6B6B6A192B8C082600408A51 /* AddingNewProduct.swift */,
@@ -158,6 +169,7 @@
 				6BFBD51B2B75AB7B00C7EF06 /* Product.swift in Sources */,
 				6B68CFC12B79872E003FED2C /* Bundle-Decodable.swift in Sources */,
 				6B6B6A1A2B8C082600408A51 /* AddingNewProduct.swift in Sources */,
+				228E2B8E2B9EABFD00AEA579 /* ProductModel.swift in Sources */,
 				6B9A45972B9A95F400473203 /* ProductDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +304,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"APrice4Everything/Preview Content\"";
-				DEVELOPMENT_TEAM = AM6BRA2G48;
+				DEVELOPMENT_TEAM = 2U49T83TPH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -321,7 +333,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"APrice4Everything/Preview Content\"";
-				DEVELOPMENT_TEAM = AM6BRA2G48;
+				DEVELOPMENT_TEAM = 2U49T83TPH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

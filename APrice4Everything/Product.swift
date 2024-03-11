@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class Product: Identifiable, Codable, Hashable, Equatable { // Se agregan los protocolos Hashable && Equatable
+struct Product: Identifiable, Codable, Hashable, Equatable { // Se agregan los protocolos Hashable && Equatable
     static func == (lhs: Product, rhs: Product) -> Bool { // static func necesaria to conform to Equatable Protocol
         return lhs.id == rhs.id
     }
@@ -25,15 +25,6 @@ class Product: Identifiable, Codable, Hashable, Equatable { // Se agregan los pr
         hasher.combine(id)
         hasher.combine(mlfb)
         hasher.combine(descripcion)
-    }
-    
-    init(mlfb: String? = nil, descripcion: String? = nil, precio: String? = nil, moneda: String? = nil, categoria: String? = nil, subcategoria: String? = nil) {
-        self.mlfb = mlfb
-        self.descripcion = descripcion
-        self.precio = precio
-        self.moneda = moneda
-        self.categoria = categoria
-        self.subcategoria = subcategoria
     }
 }
     
