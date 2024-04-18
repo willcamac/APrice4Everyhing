@@ -42,6 +42,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6BD5DC502BD16CA20060FA4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6BFBD50E2B75915400C7EF06 /* Assets.xcassets */,
+				6BFBD5182B75925B00C7EF06 /* LP2023.json */,
+				6BFBD51A2B75AB7B00C7EF06 /* Product.swift */,
+				6B68CFC02B79872E003FED2C /* Bundle-Decodable.swift */,
+				6B9A45962B9A95F400473203 /* ProductDetailView.swift */,
+				6B6B6A192B8C082600408A51 /* AddingNewProduct.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6BD5DC512BD19E6D0060FA4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6BFBD50A2B75915000C7EF06 /* APrice4EverythingApp.swift */,
+				6BFBD50C2B75915000C7EF06 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6BFBD4FE2B75914F00C7EF06 = {
 			isa = PBXGroup;
 			children = (
@@ -61,14 +83,8 @@
 		6BFBD5092B75914F00C7EF06 /* APrice4Everything */ = {
 			isa = PBXGroup;
 			children = (
-				6BFBD50A2B75915000C7EF06 /* APrice4EverythingApp.swift */,
-				6BFBD50C2B75915000C7EF06 /* ContentView.swift */,
-				6B6B6A192B8C082600408A51 /* AddingNewProduct.swift */,
-				6B9A45962B9A95F400473203 /* ProductDetailView.swift */,
-				6B68CFC02B79872E003FED2C /* Bundle-Decodable.swift */,
-				6BFBD51A2B75AB7B00C7EF06 /* Product.swift */,
-				6BFBD5182B75925B00C7EF06 /* LP2023.json */,
-				6BFBD50E2B75915400C7EF06 /* Assets.xcassets */,
+				6BD5DC512BD19E6D0060FA4D /* View */,
+				6BD5DC502BD16CA20060FA4D /* Model */,
 				6BFBD5102B75915400C7EF06 /* Preview Content */,
 			);
 			path = APrice4Everything;
