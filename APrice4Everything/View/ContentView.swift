@@ -63,33 +63,15 @@ struct ContentView: View {
 //
           
                     ScrollView{
-                        LazyVStack{ForEach(products){ product in
-                            Text("\(product.mlfb!)")
-                        }}
-            
+                        LazyVStack{
+                            ForEach(filteredProducts){ filteredProduct in
+                                NavigationLink(destination: Text("USD \(filteredProduct.precio!)").fontWeight(.heavy)) {   // forced unwrapping para mostrar el precio.
+                                    Text("\(filteredProduct.mlfb!)")                                // forced unwrapping para mostrar el mlfb.
+                                }
+                            }}
                     }
                 
-                
-                
-//                    List {
-//             LazyVStack(spacing: 10) {
-//                        ForEach(filteredProducts){ product in
-//                            if let unwrappedMlfb = product.mlfb{
-//                                
-//                                NavigationLink("\(unwrappedMlfb)", value: product)
-//                                
-//                                
-//                            }
-//                        }
-//                        .navigationDestination(for: Product.self, destination: { selection in
-//                    
-//                            Text("You have selected \(selection.mlfb!)")
-//                        })
-//                    
-//                        .border(.red, width: 1)
-  //                  }
-     //           }
-                
+               
                 
                 
                 
