@@ -19,12 +19,15 @@ struct ContentView: View {
         NavigationStack{
             VStack(alignment: .center) {
                 
-                HStack{    Button ("cantidad de productos") {
-                    print(products[1])
-                    print(products.count)
-                }
+                HStack{
+                    Button ("cantidad de productos")
+                    {
+                        print(products[1])
+                        print(products.count)
+                    }
+                    
                     Image(systemName: "printer")
-                }
+                }                       // Botón de cantidad de productos + impresora.
                 .buttonStyle(.bordered)
                 .padding(.all, 10.0)
                 
@@ -52,30 +55,40 @@ struct ContentView: View {
                         Image(systemName: "dollarsign")
                     }.buttonStyle(.bordered)
                     
-                }
+                }                       // Botones para reordenar el listado.
                 .padding(.all, 10)
                 .border(.red, width: 1)
                 Text("Texto de marcado list")
                 
-                
-                    List {
-             LazyVStack(spacing: 10) {
-                        ForEach(filteredProducts){ product in
-                            if let unwrappedMlfb = product.mlfb{
-                                
-                                NavigationLink("\(unwrappedMlfb)", value: product)
-                                
-                                
-                            }
-                        }
-                        .navigationDestination(for: Product.self, destination: { selection in
-                    
-                            Text("You have selected \(selection.mlfb!)")
-                        })
-                    
-                        .border(.red, width: 1)
+//
+          
+                    ScrollView{
+                        LazyVStack{ForEach(products){ product in
+                            Text("\(product.mlfb!)")
+                        }}
+            
                     }
-                }
+                
+                
+                
+//                    List {
+//             LazyVStack(spacing: 10) {
+//                        ForEach(filteredProducts){ product in
+//                            if let unwrappedMlfb = product.mlfb{
+//                                
+//                                NavigationLink("\(unwrappedMlfb)", value: product)
+//                                
+//                                
+//                            }
+//                        }
+//                        .navigationDestination(for: Product.self, destination: { selection in
+//                    
+//                            Text("You have selected \(selection.mlfb!)")
+//                        })
+//                    
+//                        .border(.red, width: 1)
+  //                  }
+     //           }
                 
                 
                 
@@ -84,7 +97,6 @@ struct ContentView: View {
                 AddingNewProduct(products: $products)
             }
             .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
-            
             .onAppear(perform: {filteredProducts = products})
             .searchable(text: $searchedProduct)
             .onChange(of: searchedProduct) { oldValue, newValue in /// en el momento que se actualice el searchedProduct se refreshea todo el filteredProduct
