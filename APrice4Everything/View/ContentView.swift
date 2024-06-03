@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State private var products = Bundle.main.decode("LP2023.json")
+    @StateObject var products = AllProducts()
+//    @State private var products = Bundle.main.decode("LP2023.json")
+//    @EnvironmentObject var products: Products
     @State private var searchedProduct: String = ""
     @State private var showingAddingSheet: Bool = false // Booleano que despliega el sheet.
     @State private var filteredProducts: [Product] = []
     
-    
+      
     var body: some View {
         NavigationStack{
             VStack(alignment: .center) {
@@ -22,8 +23,8 @@ struct ContentView: View {
                 HStack{
                     Button ("cantidad de productos")
                     {
-                        print(products[1])
-                        print(products.count)
+                        print(products.allProducts[1])
+                        print(products.allProducts.count)
                     }
                     
                     Image(systemName: "printer")
@@ -76,16 +77,16 @@ struct ContentView: View {
                 
                 
             }.sheet(isPresented: $showingAddingSheet) {
-                AddingNewProduct(products: $products)
+                AddingNewProduct(products: $products.allProducts)
             }
             .navigationTitle("APrice4Everything").fontWeight(/*@START_MENU_TOKEN@*/.light/*@END_MENU_TOKEN@*/)
-            .onAppear(perform: {filteredProducts = products})
+            .onAppear(perform: {filteredProducts = products.allProducts})
             .searchable(text: $searchedProduct)
             .onChange(of: searchedProduct) { oldValue, newValue in /// en el momento que se actualice el searchedProduct se refreshea todo el filteredProduct
                 
-                newValue == "" ? filteredProducts = products : ( /// si el nuevo valor está vacío entonces cargo de toda la relacion, en caso contrario aplico el filtro
+                newValue == "" ? filteredProducts = products.allProducts : ( /// si el nuevo valor está vacío entonces cargo de toda la relacion, en caso contrario aplico el filtro
                     
-                    filteredProducts = products.filter({ product in /// filtraré los product desde products y los cargaré a filteredProducts
+                    filteredProducts = products.allProducts.filter({ product in /// filtraré los product desde products y los cargaré a filteredProducts
                         guard let unwrappedMlfb = product.mlfb  else { /// Desenvuelvo el mlfb de cada uno de los product de products para asegurarme que no es nil
                             print("There was a error unwrapping mlfb") /// Arroja error si es nil y devuelve false
                             return false}

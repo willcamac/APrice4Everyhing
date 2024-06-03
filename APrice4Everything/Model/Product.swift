@@ -37,11 +37,4 @@ class Product: Identifiable, Codable, Hashable, Equatable { // Se agregan los pr
     }
 }
     
-class AllProducts: ObservableObject {
-    @Published var products: [Product] = [] // uso @Published para enviarlo al Enviroment
 
-//    init(products: [Product]) {
-//        self.products = products
-//    }
-    
-}
