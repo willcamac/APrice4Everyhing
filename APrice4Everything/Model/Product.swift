@@ -6,7 +6,9 @@
 //
 
 import Foundation
-import SwiftUI
+import SwiftData
+
+
 
 class Product: Identifiable, Codable, Hashable, Equatable { // Se agregan los protocolos Hashable && Equatable
     static func == (lhs: Product, rhs: Product) -> Bool { // static func necesaria to conform to Equatable Protocol
